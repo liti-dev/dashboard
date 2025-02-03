@@ -37,7 +37,7 @@ AFTER INSERT ON carbon_index
 FOR EACH ROW
 EXECUTE FUNCTION notify_carbon_index_update();
 
--- Create a function to insert random data
-INSERT INTO carbon_index (timestamp, location, carbon_index)
-VALUES (NOW(), 'London', 110.0 + (RANDOM() * 10)),
-       (NOW(), 'Saigon', 90.0 + (RANDOM() * 10));
+-- -- Create a function to insert random data
+-- INSERT INTO carbon_index (timestamp, location, carbon_index)
+-- VALUES (NOW(), 'London', 110.0 + (RANDOM() * 10)),
+--        (NOW(), 'Saigon', 90.0 + (RANDOM() * 10));

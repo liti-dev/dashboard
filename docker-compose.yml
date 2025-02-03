@@ -2,7 +2,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:12
-    container_name: live-dashboard
+    container_name: dashboard-postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -12,5 +12,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
+
+  app:
+    build:
+      context: .
+    container_name: live-dashboard
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./public:/app/public
+
 volumes:
   postgres_data:
